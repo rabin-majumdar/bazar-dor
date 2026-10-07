@@ -1,7 +1,13 @@
+import Hero from "./components/Hero/Hero";
+
 export default function Home() {
   return (
-    <div>
+    <main>
+      <Hero />
 
-    </div>
+      <section id="সব-পণ্য">
+        <h2>সব পণ্য</h2>
+      </section>
+    </main>
   );
 }
