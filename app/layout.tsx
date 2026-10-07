@@ -3,6 +3,7 @@ import { Noto_Serif_Bengali, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import PriceTicker from "./components/PriceTicker/PriceTicker";
 
 const NotoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -32,7 +33,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${NotoSerifBengali.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar />
+        <div className="sticky top-0 z-50">
+          <Navbar />
+          <PriceTicker />
+        </div>
         <main>
           {children}
         </main>

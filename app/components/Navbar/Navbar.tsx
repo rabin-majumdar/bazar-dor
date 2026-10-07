@@ -13,16 +13,16 @@ export default async function Navbar() {
     console.log(categories);
 
     return (
-        <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
-            <div className="container mx-auto px-4 py-4">
+        <nav className="border-b border-gray-200 bg-white">
+            <div className="container mx-auto p-2">
                 <div className="flex items-center justify-between gap-4">
 
                     {/* Logo & Date */}
                     <Link href={"/"}>
                         <div className="flex items-center gap-3">
-                            <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#05893E] shadow-sm">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#05893E] shadow-sm">
                                 <ShoppingCart
-                                    size={26}
+                                    size={20}
                                     strokeWidth={2.5}
                                     className="text-white"
                                 />
@@ -40,7 +40,7 @@ export default async function Navbar() {
                         </div>
                     </Link>
 
-                    {/* Authentication */}
+                    {/* Authentication Button */}
                     <div className="flex items-center gap-2">
                         <button
                             className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:border-[#05893E] hover:text-[#05893E] sm:px-4"

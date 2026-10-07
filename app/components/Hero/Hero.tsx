@@ -45,7 +45,6 @@ export default function Hero() {
                         className="h-auto w-full max-w-sm object-contain sm:max-w-md"
                     />
                 </div>
-
             </div>
         </section>
     );

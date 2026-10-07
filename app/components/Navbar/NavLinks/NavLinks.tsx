@@ -7,7 +7,7 @@ interface NavLinksProps {
 
 export default function NavLinks({ categories }: NavLinksProps) {
     return (
-        <div className="flex flex-wrap items-center gap-2 mt-2">
+        <div className="flex flex-wrap items-center gap-2">
             {categories.map((category) => (
                 <NavLinkItem
                     key={category.id}
