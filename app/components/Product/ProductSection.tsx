@@ -20,11 +20,11 @@ export default function ProductSection({
 
                 <div className="flex items-center gap-2">
                     {type === "rising" && (
-                        <span className="text-red-600">▲</span>
+                        <span className="text-green-600">▲</span>
                     )}
 
                     {type === "falling" && (
-                        <span className="text-green-600">▼</span>
+                        <span className="text-red-600">▼</span>
                     )}
 
                     <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">

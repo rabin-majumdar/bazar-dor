@@ -17,8 +17,8 @@ export default function Hero() {
                         {date}
                     </span>
 
-                    <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-                        বাজারের দামের খবর এক নজরে
+                    <h1 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
+                        আজকের বাজারের দাম এক নজরে
                     </h1>
 
                     <p className="mt-4 max-w-lg text-sm leading-6 text-gray-600 sm:text-base">
