@@ -10,8 +10,6 @@ export default async function Navbar() {
 
     const categories = await getCategories();
 
-    console.log(categories);
-
     return (
         <nav className="border-b border-gray-200 bg-white">
             <div className="container mx-auto p-2">

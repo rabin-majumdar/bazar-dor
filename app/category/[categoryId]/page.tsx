@@ -29,8 +29,6 @@ export default async function CategoryPage({
         notFound();
     }
 
-    console.log(products);
-
     return (
         <main className="container mx-auto px-4 py-12">
             <div className="mb-6 rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
