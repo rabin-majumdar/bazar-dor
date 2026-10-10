@@ -9,7 +9,7 @@ export default async function PriceTicker() {
 
     return (
         <div className="border-b border-gray-200 bg-white">
-            <div className="container mx-auto overflow-hidden px-4">
+            <div className="overflow-hidden px-4">
                 <MarqueeText direction="right" duration={20}>
                     {products.map((product) => (
                         <span

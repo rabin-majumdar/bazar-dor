@@ -2,6 +2,7 @@ import { ShoppingCart } from "lucide-react";
 import { getCategories } from "@/app/services/categoryService";
 import NavLinks from "./NavLinks/NavLinks";
 import Link from "next/link";
+import AuthButtons from "./AuthButtons";
 
 export default async function Navbar() {
     const date = new Date().toLocaleDateString("bn-BD", {
@@ -39,21 +40,7 @@ export default async function Navbar() {
                         </div>
                     </Link>
                     {/* Authentication Button */}
-                    <div className="flex items-center gap-2">
-                        <Link
-                            href="/sign-in"
-                            className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:border-[#05893E] hover:text-[#05893E] sm:px-4"
-                        >
-                            সাইন ইন
-                        </Link>
-
-                        <Link
-                            href="/sign-up"
-                            className="rounded-lg bg-[#05893E] px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#047a37] hover:shadow-md sm:px-4"
-                        >
-                            সাইন আপ
-                        </Link>
-                    </div>
+                    <AuthButtons />
                 </div>
 
                 {/* Categories */}
