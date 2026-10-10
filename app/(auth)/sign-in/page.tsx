@@ -1,19 +1,17 @@
-
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { signUp } from "@/lib/auth-client";
-import { Envelope, EyeSlash, Person } from "@gravity-ui/icons";
+import { Envelope, EyeSlash } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
+import { signIn } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
-export default function SignUpPage() {
+export default function SignInPage() {
     const router = useRouter();
-
+    const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (
         e: React.FormEvent<HTMLFormElement>
@@ -25,19 +23,19 @@ export default function SignUpPage() {
 
         const formData = new FormData(e.currentTarget);
 
-        const name = String(formData.get("name") ?? "");
         const email = String(formData.get("email") ?? "");
         const password = String(formData.get("password") ?? "");
 
         try {
-            const { error } = await signUp.email({
-                name,
+            const { error } = await signIn.email({
                 email,
                 password,
             });
 
             if (error) {
-                setErrorMessage(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি।");
+                setErrorMessage(
+                    error.message || "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।"
+                );
                 return;
             }
 
@@ -50,7 +48,6 @@ export default function SignUpPage() {
         }
     };
 
-
     return (
         <main className="flex min-h-screen items-center justify-center bg-[#f3faf6] px-4 py-10">
             <div className="w-full max-w-md rounded-2xl border border-green-100 bg-white p-6 shadow-sm sm:p-8">
@@ -58,59 +55,34 @@ export default function SignUpPage() {
                     <div className="mb-4 text-4xl">🛒</div>
 
                     <h1 className="text-2xl font-bold text-gray-900">
-                        নতুন অ্যাকাউন্ট তৈরি করুন
+                        স্বাগতম ফিরে আসায়
                     </h1>
 
                     <p className="mt-2 text-sm text-gray-500">
-                        বাজার দর-এর সঙ্গে নিত্যপণ্যের দাম জানুন
+                        আপনার অ্যাকাউন্টে সাইন ইন করুন
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-
-                    <div>
-                        <label
-                            htmlFor="name"
-                            className="mb-2 block text-sm font-medium text-gray-700"
-                        >
-                            আপনার নাম
-                        </label>
-
-                        <div className="flex items-center gap-3 rounded-lg border border-gray-200 px-4 transition focus-within:border-[#05893E] focus-within:ring-2 focus-within:ring-green-100">
-                            <Person className="h-4 w-4 shrink-0 text-gray-400" />
-
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="আপনার পুরো নাম"
-                                autoComplete="name"
-                                minLength={3}
-                                required
-                                className="w-full border-0 bg-transparent py-3 text-sm outline-none"
-                            />
-                        </div>
-                    </div>
-
                     <div>
                         <label
                             htmlFor="email"
                             className="mb-2 block text-sm font-medium text-gray-700"
                         >
-                            ইমেইল ঠিকানা
+                            ইমেইল অ্যাড্রেস
                         </label>
 
-                        <div className="flex items-center gap-3 rounded-lg border border-gray-200 px-4 transition focus-within:border-[#05893E] focus-within:ring-2 focus-within:ring-green-100">
+                        <div className="flex items-center gap-3 rounded-lg border border-gray-200 px-3 transition focus-within:border-[#05893E] focus-within:ring-2 focus-within:ring-green-100">
                             <Envelope className="h-4 w-4 shrink-0 text-gray-400" />
 
                             <input
                                 id="email"
                                 name="email"
                                 type="email"
-                                placeholder="example@email.com"
+                                placeholder="আপনার ইমেইল লিখুন"
                                 autoComplete="email"
                                 required
-                                className="w-full border-0 bg-transparent py-3 text-sm outline-none"
+                                className="w-full bg-transparent py-3 text-sm outline-none"
                             />
                         </div>
                     </div>
@@ -123,30 +95,35 @@ export default function SignUpPage() {
                             পাসওয়ার্ড
                         </label>
 
-                        <div className="flex items-center gap-3 rounded-lg border border-gray-200 px-4 transition focus-within:border-[#05893E] focus-within:ring-2 focus-within:ring-green-100">
+                        <div className="flex items-center gap-3 rounded-lg border border-gray-200 px-3 transition focus-within:border-[#05893E] focus-within:ring-2 focus-within:ring-green-100">
                             <LockKeyhole className="h-4 w-4 shrink-0 text-gray-400" />
 
                             <input
                                 id="password"
                                 name="password"
                                 type={showPassword ? "text" : "password"}
-                                placeholder="কমপক্ষে ৮ অক্ষর"
-                                autoComplete="new-password"
-                                minLength={8}
+                                placeholder="আপনার পাসওয়ার্ড লিখুন"
+                                autoComplete="current-password"
                                 required
-                                className="w-full border-0 bg-transparent py-3 text-sm outline-none"
+                                className="w-full bg-transparent py-3 text-sm outline-none"
                             />
 
                             <button
                                 type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="shrink-0 text-gray-400 transition hover:text-[#05893E]"
-                                aria-label={showPassword ? "পাসওয়ার্ড লুকান" : "পাসওয়ার্ড দেখুন"}
+                                onClick={() =>
+                                    setShowPassword(!showPassword)
+                                }
+                                aria-label={
+                                    showPassword
+                                        ? "পাসওয়ার্ড লুকান"
+                                        : "পাসওয়ার্ড দেখুন"
+                                }
+                                className="text-gray-400 hover:text-gray-600"
                             >
                                 {showPassword ? (
-                                    <EyeSlash className="h-4 w-4" />
+                                    <Eye className="size-4" />
                                 ) : (
-                                    <Eye className="h-4 w-4" />
+                                    <EyeSlash className="size-4" />
                                 )}
                             </button>
                         </div>
@@ -155,30 +132,28 @@ export default function SignUpPage() {
                     {errorMessage && (
                         <p
                             role="alert"
-                            className="rounded-lg bg-red-50 p-3 text-sm text-red-600"
+                            className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"
                         >
                             {errorMessage}
                         </p>
                     )}
-
+                    
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full rounded-lg bg-[#05893E] px-4 py-3 font-semibold text-white transition hover:bg-[#047a37] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="w-full rounded-lg bg-[#05893E] py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                        {isLoading
-                            ? "অ্যাকাউন্ট তৈরি হচ্ছে..."
-                            : "অ্যাকাউন্ট তৈরি করুন"}
+                        {isLoading ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
                     </button>
                 </form>
 
                 <p className="mt-6 text-center text-sm text-gray-600">
-                    আগে থেকেই অ্যাকাউন্ট আছে?{" "}
+                    অ্যাকাউন্ট নেই?{" "}
                     <Link
-                        href="/sign-in"
+                        href="/sign-up"
                         className="font-semibold text-[#05893E] hover:underline"
                     >
-                        সাইন ইন করুন
+                        সাইন আপ করুন
                     </Link>
                 </p>
             </div>
