@@ -6,6 +6,7 @@ import Link from "next/link";
 export default async function Navbar() {
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
+        timeZone: "Asia/Dhaka",
     });
 
     const categories = await getCategories();
@@ -37,20 +38,21 @@ export default async function Navbar() {
                             </div>
                         </div>
                     </Link>
-
                     {/* Authentication Button */}
                     <div className="flex items-center gap-2">
-                        <button
+                        <Link
+                            href="/sign-in"
                             className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition hover:border-[#05893E] hover:text-[#05893E] sm:px-4"
                         >
                             সাইন ইন
-                        </button>
+                        </Link>
 
-                        <button
+                        <Link
+                            href="/sign-up"
                             className="rounded-lg bg-[#05893E] px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#047a37] hover:shadow-md sm:px-4"
                         >
                             সাইন আপ
-                        </button>
+                        </Link>
                     </div>
                 </div>
 

@@ -5,8 +5,8 @@ export default function Hero() {
 
     const date = new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",
+        timeZone: "Asia/Dhaka",
     });
-
     return (
         <section className="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
             <div className="grid items-center gap-8 overflow-hidden rounded-2xl bg-white px-6 py-8 shadow-sm sm:px-10 lg:grid-cols-2 lg:px-14 lg:py-12">
