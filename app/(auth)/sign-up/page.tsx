@@ -4,10 +4,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth-client";
+import Social from "@/app/components/Auth/Social";
 import { signUp } from "@/lib/auth-client";
 import { Envelope, EyeSlash, Person } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
+import { Spinner } from "@heroui/react";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -57,6 +60,59 @@ export default function SignUpPage() {
         }
     };
 
+    const handleGoogleSignIn = async () => {
+        setIsLoading(true);
+        setErrorMessage("");
+
+        try {
+            const { error } = await signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+
+            if (error) {
+                const message =
+                    error.message || "Google দিয়ে সাইন ইন করা যায়নি।";
+
+                setErrorMessage(message);
+                toast.error(message);
+            }
+        } catch {
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+            setErrorMessage(message);
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleGitHubSignIn = async () => {
+        setIsLoading(true);
+        setErrorMessage("");
+
+        try {
+            const { error } = await signIn.social({
+                provider: "github",
+                callbackURL: "/",
+            });
+
+            if (error) {
+                const message =
+                    error.message || "GitHub দিয়ে সাইন ইন করা যায়নি।";
+
+                setErrorMessage(message);
+                toast.error(message);
+            }
+        } catch {
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+            setErrorMessage(message);
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-[#f3faf6] px-4 py-10">
@@ -171,13 +227,30 @@ export default function SignUpPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full rounded-lg bg-[#05893E] px-4 py-3 font-semibold text-white transition hover:bg-[#047a37] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#05893E] px-4 py-3 font-semibold text-white transition hover:bg-[#047a37] disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                        {isLoading
-                            ? "অ্যাকাউন্ট তৈরি হচ্ছে..."
-                            : "অ্যাকাউন্ট তৈরি করুন"}
+                        {isLoading ? (
+                            <>
+                                <Spinner color="current" size="sm" />
+                                অপেক্ষা করুন...
+                            </>
+                        ) : (
+                            "অ্যাকাউন্ট তৈরি করুন"
+                        )}
                     </button>
                 </form>
+
+                <div className="my-6 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-gray-200" />
+                    <span className="text-xs text-gray-400">অথবা</span>
+                    <div className="h-px flex-1 bg-gray-200" />
+                </div>
+
+                <Social
+                    onGoogleSignIn={handleGoogleSignIn}
+                    onGitHubSignIn={handleGitHubSignIn}
+                    isLoading={isLoading}
+                />
 
                 <p className="mt-6 text-center text-sm text-gray-600">
                     আগে থেকেই অ্যাকাউন্ট আছে?{" "}

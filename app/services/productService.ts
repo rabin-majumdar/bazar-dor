@@ -2,15 +2,10 @@ import { Product } from "../types/product";
 
 export const getProducts = async (): Promise<Product[]> => {
     const res = await fetch(
-        "https://api.abcz.workers.dev/api/bazardor/products"
+        "https://openapi.programming-hero.com/api/bazardor/products"
     );
 
     const data: Product[] = await res.json();
 
     return data;
 };
-
-
-// https://api.api-store.workers.dev/api/bazardor/products
-
-// https://api.abcz.workers.dev/api/bazardor/products

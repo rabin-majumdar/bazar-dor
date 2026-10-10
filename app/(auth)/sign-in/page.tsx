@@ -7,12 +7,71 @@ import { Eye, LockKeyhole } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Social from "@/app/components/Auth/Social";
+import { Spinner } from "@heroui/react";
 
 export default function SignInPage() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+
+
+
+    const handleGoogleSignIn = async () => {
+        setIsLoading(true);
+        setErrorMessage("");
+
+        try {
+            const { error } = await signIn.social({
+                provider: "google",
+                callbackURL: "/",
+            });
+
+            if (error) {
+                const message = error.message || "Google দিয়ে সাইন ইন করা যায়নি।";
+                setErrorMessage(message);
+                toast.error(message);
+            }
+        } catch {
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+            setErrorMessage(message);
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+
+    const handleGitHubSignIn = async () => {
+        setIsLoading(true);
+        setErrorMessage("");
+
+        try {
+            const { error } = await signIn.social({
+                provider: "github",
+                callbackURL: "/",
+            });
+
+            if (error) {
+                const message =
+                    error.message || "GitHub দিয়ে সাইন ইন করা যায়নি।";
+
+                setErrorMessage(message);
+                toast.error(message);
+            }
+        } catch {
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করুন।";
+
+            setErrorMessage(message);
+            toast.error(message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
 
     const handleSubmit = async (
         e: React.FormEvent<HTMLFormElement>
@@ -149,11 +208,31 @@ export default function SignInPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full rounded-lg bg-[#05893E] py-3 font-semibold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#05893E] px-4 py-3 font-semibold text-white transition hover:bg-[#047a37] disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                        {isLoading ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
+                        {isLoading ? (
+                            <>
+                                <Spinner color="current" size="sm" />
+                                অপেক্ষা করুন, সাইন ইন হচ্ছে...
+                            </>
+                        ) : (
+                            "সাইন ইন করুন"
+                        )}
                     </button>
                 </form>
+
+
+                <div className="my-6 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-gray-200" />
+                    <span className="text-xs text-gray-400">অথবা</span>
+                    <div className="h-px flex-1 bg-gray-200" />
+                </div>
+
+                <Social
+                    onGoogleSignIn={handleGoogleSignIn}
+                    onGitHubSignIn={handleGitHubSignIn}
+                    isLoading={isLoading}
+                />
 
                 <p className="mt-6 text-center text-sm text-gray-600">
                     অ্যাকাউন্ট নেই?{" "}
