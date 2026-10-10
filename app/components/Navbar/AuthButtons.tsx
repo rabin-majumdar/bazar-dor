@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
-import { ChevronDown, UserRound } from "lucide-react";
+import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
 export default function AuthButtons() {
     const { data: session, isPending } = useSession();
@@ -30,11 +31,19 @@ export default function AuthButtons() {
     }, []);
 
 
+
     const handleSignOut = async () => {
         setIsOpen(false);
-        await signOut();
-        router.refresh();
+
+        try {
+            await signOut();
+            toast.success("সফলভাবে সাইন আউট করেছেন!");
+            router.refresh();
+        } catch {
+            toast.error("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
+        }
     };
+
 
 
     if (isPending) {
@@ -78,18 +87,21 @@ export default function AuthButtons() {
                         <Link
                             href="/profile"
                             onClick={() => setIsOpen(false)}
-                            className="mt-2 block rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-green-50 hover:text-[#05893E]"
+                            className="mt-2 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-700 transition hover:bg-green-50 hover:text-[#05893E]"
                         >
-                            আমার প্রোফাইল
+                            <UserRound size={18} />
+                            <span>আমার প্রোফাইল</span>
                         </Link>
 
                         <button
                             type="button"
                             onClick={handleSignOut}
-                            className="w-full rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+                            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm text-red-600 transition hover:bg-red-50"
                         >
-                            সাইন আউট
+                            <LogOut size={18} />
+                            <span>সাইন আউট</span>
                         </button>
+
                     </div>
                 )}
             </div>

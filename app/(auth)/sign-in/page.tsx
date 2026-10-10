@@ -6,6 +6,7 @@ import { Envelope, EyeSlash } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SignInPage() {
     const router = useRouter();
@@ -33,16 +34,23 @@ export default function SignInPage() {
             });
 
             if (error) {
-                setErrorMessage(
-                    error.message || "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।"
-                );
+                const message =
+                    error.message || "ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।";
+
+                setErrorMessage(message);
+                toast.error(message);
                 return;
             }
 
+            toast.success("সফলভাবে সাইন ইন করেছেন!");
             router.push("/");
             router.refresh();
+
         } catch {
-            setErrorMessage("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করো।";
+
+            setErrorMessage(message);
+            toast.error(message);
         } finally {
             setIsLoading(false);
         }
@@ -137,7 +145,7 @@ export default function SignInPage() {
                             {errorMessage}
                         </p>
                     )}
-                    
+
                     <button
                         type="submit"
                         disabled={isLoading}

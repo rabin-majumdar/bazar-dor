@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
 import { Envelope, EyeSlash, Person } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -37,14 +38,20 @@ export default function SignUpPage() {
             });
 
             if (error) {
-                setErrorMessage(error.message || "অ্যাকাউন্ট তৈরি করা যায়নি।");
+                const message = error.message || "অ্যাকাউন্ট তৈরি করা যায়নি।";
+
+                setErrorMessage(message);
+                toast.error(message);
                 return;
             }
-
+            toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে!");
             router.push("/");
             router.refresh();
         } catch {
-            setErrorMessage("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+            const message = "সমস্যা হয়েছে। আবার চেষ্টা করো।";
+
+            setErrorMessage(message);
+            toast.error(message);
         } finally {
             setIsLoading(false);
         }
