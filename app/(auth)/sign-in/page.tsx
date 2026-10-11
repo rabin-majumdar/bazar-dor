@@ -120,7 +120,7 @@ export default function SignInPage() {
     };
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center bg-[#f3faf6] px-4 py-10">
+        <main className="flex flex-col items-center justify-center bg-[#f3faf6] px-4 py-6">
             <div className="w-full max-w-md rounded-2xl border border-green-100 bg-white p-6 shadow-sm sm:p-8">
                 <div className="mb-8 text-center">
                     <div className="relative mx-auto mb-4 h-12 w-12">
