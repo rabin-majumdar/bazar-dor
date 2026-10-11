@@ -6,6 +6,7 @@ import { signOut, useSession } from "@/lib/auth-client";
 import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function AuthButtons() {
     const { data: session, isPending } = useSession();
@@ -58,8 +59,19 @@ export default function AuthButtons() {
                     aria-expanded={isOpen}
                     className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition hover:bg-gray-100"
                 >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-[#05893E]">
-                        <UserRound size={20} />
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-green-100 text-[#05893E]">
+                        {session.user.image ? (
+                            <Image
+                                src={session.user.image}
+                                alt="প্রোফাইল ছবি"
+                                width={36}
+                                height={36}
+                                unoptimized
+                                className="h-full w-full object-cover"
+                            />
+                        ) : (
+                            <UserRound size={20} />
+                        )}
                     </div>
 
                     <span className="hidden text-sm font-medium text-gray-800 sm:block">

@@ -35,7 +35,7 @@ export default function Footer() {
                 {/* Quick Links */}
                 <div>
                     <h3 className="mb-4 text-lg font-semibold text-gray-800">
-                        দ্রুত লিংক
+                        প্রয়োজনীয় লিংক
                     </h3>
 
                     <ul className="space-y-3 text-sm text-gray-600">
