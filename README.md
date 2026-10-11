@@ -4,6 +4,22 @@
 
 🔗 **Live Demo:** [https://bazar-dor-gray.vercel.app/](https://bazar-dor-gray.vercel.app/)
 
+## 📸 Screenshots
+
+### 🏠 Homepage
+![Bazar Dor Homepage](./screenshots/homepage.png)
+
+### 🗂️ Category Page
+![Category Page](./screenshots/category-page.png)
+
+### 📊 Product Details
+![Product Details Page](./screenshots/product-details.png)
+
+### 👤 User Profile
+![User Profile Page](./screenshots/profile-page.png)
+
+
+
 ## ✨ Key Features
 
 - **📊 Daily Market Prices:** Browse the latest prices of essential commodities and track price changes.
