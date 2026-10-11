@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient, useSession } from "@/lib/auth-client";
 import { Camera, Pencil, Save, UserRound, X } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 type ProfileFormProps = {
     name: string;
@@ -77,7 +78,7 @@ export default function ProfileForm({
             }
 
             setPreviewImage(data.imageUrl);
-            setMessage("প্রোফাইল ছবি সফলভাবে আপডেট হয়েছে।");
+            toast.success("প্রোফাইল ছবি সফলভাবে আপডেট হয়েছে।");
         } catch {
             setMessage("একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
         } finally {
@@ -109,7 +110,7 @@ export default function ProfileForm({
 
             setCurrentName(trimmedName);
             setIsEditing(false);
-            setMessage("নাম সফলভাবে আপডেট হয়েছে।");
+            toast.success("নাম সফলভাবে আপডেট হয়েছে।");
         } catch {
             setMessage("একটি সমস্যা হয়েছে। আবার চেষ্টা করো।");
         } finally {
