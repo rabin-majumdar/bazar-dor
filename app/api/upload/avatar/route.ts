@@ -53,9 +53,9 @@ export async function POST(request: Request) {
         }
 
         // Maximum file size: 5 MB
-        if (file.size > 2 * 1024 * 1024) {
+        if (file.size > 5 * 1024 * 1024) {
             return NextResponse.json(
-                { error: "ছবির সাইজ সর্বোচ্চ 2 MB হতে পারবে।" },
+                { error: "ছবির সাইজ সর্বোচ্চ 5 MB হতে পারবে।" },
                 { status: 400 }
             );
         }

@@ -40,8 +40,8 @@ export default function ProfileForm({
             return;
         }
 
-        if (file.size > 2 * 1024 * 1024) {
-            setMessage("ছবির সাইজ সর্বোচ্চ 2 MB হতে পারবে।");
+        if (file.size > 5 * 1024 * 1024) {
+            setMessage("ছবির সাইজ সর্বোচ্চ 5 MB হতে পারবে।");
             event.target.value = "";
             return;
         }
@@ -157,7 +157,7 @@ export default function ProfileForm({
                 <p className="mt-3 text-sm text-gray-500">
                     {isUploading
                         ? "ছবি আপলোড হচ্ছে..."
-                        : "JPG, PNG অথবা WebP · সর্বোচ্চ 2 MB"}
+                        : "JPG, PNG অথবা WebP · সর্বোচ্চ 5 MB"}
                 </p>
             </div>
             <h2 className="mb-6 font-semibold text-gray-900">
