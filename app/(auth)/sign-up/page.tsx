@@ -11,6 +11,7 @@ import { Envelope, EyeSlash, Person } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
 import { Spinner } from "@heroui/react";
+import Image from "next/image";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -118,7 +119,16 @@ export default function SignUpPage() {
         <main className="flex min-h-screen flex-col items-center justify-center bg-[#f3faf6] px-4 py-10">
             <div className="w-full max-w-md rounded-2xl border border-green-100 bg-white p-6 shadow-sm sm:p-8">
                 <div className="mb-8 text-center">
-                    <div className="mb-4 text-4xl">🛒</div>
+                    <div className="relative mx-auto mb-4 h-12 w-12">
+                        <Image
+                            src="/logo-icon.png"
+                            alt="বাজার দর"
+                            fill
+                            sizes="48px"
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
 
                     <h1 className="text-2xl font-bold text-gray-900">
                         নতুন অ্যাকাউন্ট তৈরি করুন
