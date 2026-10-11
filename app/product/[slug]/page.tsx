@@ -1,10 +1,12 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getProducts } from "@/app/services/productService";
 import ProductBreadcrumb from "@/app/components/ProductDetails/ProductBreadcrumb";
 import ProductHeader from "@/app/components/ProductDetails/ProductHeader";
 import PriceSummary from "@/app/components/ProductDetails/PriceSummary";
 import MarketPriceTable from "@/app/components/ProductDetails/MarketPriceTable";
 import { getProductPriceSummary } from "@/app/utils/productPriceUtils";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 interface ProductDetailsPageProps {
     params: Promise<{
@@ -18,6 +20,16 @@ export default async function ProductDetailsPage({
     const { slug } = await params;
 
     const products = await getProducts();
+
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session) {
+        redirect(
+            `/sign-in?callbackURL=${encodeURIComponent(`/product/${slug}`)}`
+        );
+    }
 
     const product = products.find(
         (product) => product.slug === slug

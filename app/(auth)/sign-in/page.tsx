@@ -5,13 +5,16 @@ import Link from "next/link";
 import { Envelope, EyeSlash } from "@gravity-ui/icons";
 import { Eye, LockKeyhole } from "lucide-react";
 import { signIn } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Social from "@/app/components/Auth/Social";
 import { Spinner } from "@heroui/react";
 
 export default function SignInPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const callbackURL = searchParams.get("callbackURL") || "/";
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -25,7 +28,7 @@ export default function SignInPage() {
         try {
             const { error } = await signIn.social({
                 provider: "google",
-                callbackURL: "/",
+                callbackURL,
             });
 
             if (error) {
@@ -51,7 +54,7 @@ export default function SignInPage() {
         try {
             const { error } = await signIn.social({
                 provider: "github",
-                callbackURL: "/",
+                callbackURL,
             });
 
             if (error) {
@@ -102,7 +105,7 @@ export default function SignInPage() {
             }
 
             toast.success("সফলভাবে সাইন ইন করেছেন!");
-            router.push("/");
+            router.push(callbackURL);
             router.refresh();
 
         } catch {
